@@ -50,6 +50,6 @@ public class Tenant {
     @Column(name = "lease_status")
     private LeaseStatus leaseStatus;
 
-    @Column(name = "property_id")
-    private Long propertyId;
+    @Column(name = "property_name")
+    private String propertyName;
 }
