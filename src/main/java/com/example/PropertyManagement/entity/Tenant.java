@@ -2,12 +2,9 @@ package com.example.PropertyManagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tenants")
@@ -22,13 +19,13 @@ public class Tenant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
-    private String fullname;
+    @Column(name = "full_name")
+    private String fullName;
 
-    @Column(length = 150, unique = true)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_no", length = 30)
+    @Column(name = "phone_no")
     private String phoneNo;
 
     @Column(name = "lease_start_date")
@@ -37,11 +34,11 @@ public class Tenant {
     @Column(name = "lease_end_date")
     private LocalDate leaseEndDate;
 
-    @Column(name = "rent_amt", nullable = false, precision = 10, scale = 2)
+    @Column(name="rent_amt",precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal rentAmt = BigDecimal.ZERO;
 
-    @Column(name = "security_deposit", nullable = false, precision = 10, scale = 2)
+    @Column(name="security_deposit",precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal securityDeposit = BigDecimal.ZERO;
 
@@ -50,14 +47,9 @@ public class Tenant {
     private String tenantNotes;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "lease_status", nullable = false)
-    @Builder.Default
-    private LeaseStatus leaseStatus = LeaseStatus.Upcoming;
+    @Column(name = "lease_status")
+    private LeaseStatus leaseStatus;
 
-    // FK: tenants.property_id -> properties.id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "property_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Property property;
+    @Column(name = "property_id")
+    private Long propertyId;
 }

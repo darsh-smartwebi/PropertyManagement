@@ -2,20 +2,11 @@ package com.example.PropertyManagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "invoices",
-        uniqueConstraints = @UniqueConstraint(
-                name = "uq_invoice_period",
-                columnNames = {"tenant_id", "invoice_month", "invoice_year"}
-        )
-)
+@Table(name = "invoices")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Builder
@@ -25,32 +16,30 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "invoice_month", nullable = false)
-    private Integer invoiceMonth; // 1..12
+    @Column(name = "invoice_no", unique = true)
+    private String invoiceNo;
 
-    @Column(name = "invoice_year", nullable = false)
+    @Column(name = "invoice_month", unique = true)
+    private Integer invoiceMonth;
+
+    @Column(name = "invoice_year", unique = true)
     private Integer invoiceYear;
 
-    @Column(name = "base_rent", nullable = false, precision = 10, scale = 2)
+    @Column(name="base_rent", precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal baseRent = BigDecimal.ZERO;
 
-    @Column(name = "late_fee", nullable = false, precision = 10, scale = 2)
+    @Column(name="late_fee",precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal lateFee = BigDecimal.ZERO;
 
-    @Column(name = "discount", nullable = false, precision = 10, scale = 2)
+    @Column(name="discount",precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal discount = BigDecimal.ZERO;
 
-    @Column(name = "total_rent", nullable = false, precision = 10, scale = 2)
+    @Column(name="total_rent",precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal totalRent = BigDecimal.ZERO;
 
-    // FK: invoices.tenant_id -> tenants.id
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tenant_id", nullable = false)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Tenant tenant;
+    private Long tenantId;
 }

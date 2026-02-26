@@ -2,11 +2,8 @@ package com.example.PropertyManagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "properties")
@@ -21,23 +18,23 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "property_name", nullable = false, length = 150)
+    @Column(name = "property_name")
     private String propertyName;
 
-    @Column(name = "property_address", nullable = false, length = 255)
+    @Column(name = "property_address")
     private String propertyAddress;
 
-    @Column(name = "property_type", nullable = false, length = 50)
+    @Column(name = "property_type")
     private String propertyType;
 
     @Column(name = "no_of_rooms")
     private Integer noOfRooms;
 
-    @Column(name = "monthly_rent", nullable = false, precision = 10, scale = 2)
+    @Column(name="monthly_rent" ,precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal monthlyRent = BigDecimal.ZERO;
 
-    @Column(name = "floor_area")
+    @Column(name ="floor_area" )
     private Integer floorArea;
 
     @Lob
@@ -45,7 +42,6 @@ public class Property {
     private String propertyNotes;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    @Builder.Default
-    private Status status = Status.Vacant;
+    @Column(name ="property_status")
+    private Status status;
 }

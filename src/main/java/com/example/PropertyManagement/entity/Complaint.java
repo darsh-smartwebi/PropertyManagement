@@ -2,10 +2,6 @@ package com.example.PropertyManagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "complaints")
@@ -20,29 +16,20 @@ public class Complaint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "complaint_category", nullable = false, length = 80)
+    @Column(name = "complaint_category")
     private String complaintCategory;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "complaint_priority", nullable = false)
-    @Builder.Default
-    private Priority complaintPriority = Priority.Medium;
+    @Column(name = "complaint_priority")
+    private Priority complaintPriority;
 
     @Lob
-    @Column(name = "complaint_description", nullable = false)
+    @Column(name = "complaint_description")
     private String complaintDescription;
 
-    // FK: complaints.property_id -> properties.id
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "property_id", nullable = false)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Property property;
+    @Column(name = "property_id")
+    private Long propertyId;
 
-    // FK: complaints.tenant_id -> tenants.id (nullable)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tenant_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Tenant tenant;
+    @Column(name = "tenant_id")
+    private Long tenantId;
 }
