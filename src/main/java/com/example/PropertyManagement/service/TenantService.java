@@ -17,7 +17,7 @@ public class TenantService {
 
     private final TenantRepository repo;
 
-    public Tenant create(Tenant tenant) {
+    public Tenant createTenant(Tenant tenant) {
 
         if (tenant.getRentAmt() == null) {
             tenant.setRentAmt(BigDecimal.ZERO);
@@ -30,7 +30,7 @@ public class TenantService {
         return repo.save(tenant);
     }
 
-    public Tenant getById(Long id) {
+    public Tenant getTenantById(Long id) {
         return repo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tenant not found: " + id));
     }
@@ -44,7 +44,7 @@ public class TenantService {
         return repo.findAll();
     }
 
-    public Tenant update(Long id, Tenant updated) {
+    public Tenant updateTenant(Long id, Tenant updated) {
 
         Tenant existing = repo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tenant not found: " + id));
@@ -63,7 +63,7 @@ public class TenantService {
         return repo.save(existing);
     }
 
-    public void delete(Long id) {
+    public void deleteTenant(Long id) {
         if (!repo.existsById(id)) {
             throw new EntityNotFoundException("Tenant not found: " + id);
         }

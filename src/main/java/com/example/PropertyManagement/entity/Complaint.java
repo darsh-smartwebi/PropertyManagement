@@ -23,13 +23,12 @@ public class Complaint {
     @Column(name = "complaint_priority")
     private Priority complaintPriority;
 
-    @Lob
     @Column(name = "complaint_description")
     private String complaintDescription;
 
-    @Column(name = "property_id")
-    private Long propertyId;
+    @Column(name = "property_name")
+    private Long propertyName;
 
-    @Column(name = "tenant_id")
-    private Long tenantId;
+    @Column(name = "tenant_name")
+    private Long tenantName;
 }
